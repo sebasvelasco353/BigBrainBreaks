@@ -1,4 +1,6 @@
-import { ModalContainer } from "../ModalContainer"
+import { ModalContainer } from "./ModalContainer"
+
+// TODO: Add UI and connect to context
 
 interface NewTimerModalProps {
   isModalOpen: boolean;

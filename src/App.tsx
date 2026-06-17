@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { Footer } from "./components/Footer"
 import { Timer } from "./components/Timer"
-import { requestNotificationPermission } from "@/utils/notifications"
-import { NewTimerModal } from "@/components/NewTimerModal"
+import { NewTimerModal } from "./components/NewTimerModal"
+import { requestNotificationPermission } from "./utils/notifications"
 
+// FIXME: @ alias not working on the linter but working on compile time
 
 function App() {
   const [isTimerActive, setIsTimerActive] = useState<boolean>(false)
@@ -27,6 +28,7 @@ function App() {
           <button onClick={() => handleToggleTimer()}> {isTimerActive ? "STOP" : "START"}</button>
         </section>
         <section className="flex-1">
+          {/* TODO: Add Timers Queue display and actions */}
           <p>TimersQueue</p>
         </section>
       </main>
