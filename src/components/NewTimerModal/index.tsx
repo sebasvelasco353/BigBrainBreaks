@@ -7,7 +7,7 @@ interface NewTimerModalProps {
 
 export const NewTimerModal = ({ isModalOpen, setIsModalOpen }: NewTimerModalProps) => {
   return (
-    <ModalContainer isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+    <ModalContainer isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="New Timer">
       <p> hello </p>
     </ModalContainer>
   )
