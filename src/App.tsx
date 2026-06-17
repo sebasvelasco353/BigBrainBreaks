@@ -28,8 +28,14 @@ function App() {
           <button onClick={() => handleToggleTimer()}> {isTimerActive ? "STOP" : "START"}</button>
         </section>
         <section className="flex-1">
-          {/* TODO: Add Timers Queue display and actions */}
-          <p>TimersQueue</p>
+
+          {/* TODO: Add sidebar menu component and functionality */}
+          <p>Sidebar Menu</p>
+          <ul>
+            <li>TimersQueue</li>
+            <li>TimersHistory</li>
+            <li>Settings</li>
+          </ul>
         </section>
       </main>
       <NewTimerModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

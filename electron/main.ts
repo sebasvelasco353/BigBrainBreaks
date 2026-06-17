@@ -1,9 +1,7 @@
-import { app, BrowserWindow } from 'electron'
-import { createRequire } from 'node:module'
+import { app, BrowserWindow, Menu, Tray, nativeImage } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
-const require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // The built directory structure
@@ -45,6 +43,9 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(RENDERER_DIST, 'index.html'))
   }
+
+  // FIXME: Remove this when building for prod
+  win.webContents.openDevTools()
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -63,6 +64,24 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
+})
+
+// TODO: Add a real system tray icon
+// TODO: Connect functionality to the menus (e.g start timers)
+
+let tray = null
+const icon = nativeImage.createFromDataURL('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACTSURBVHgBpZKBCYAgEEV/TeAIjuIIbdQIuUGt0CS1gW1iZ2jIVaTnhw+Cvs8/OYDJA4Y8kR3ZR2/kmazxJbpUEfQ/Dm/UG7wVwHkjlQdMFfDdJMFaACebnjJGyDWgcnZu1/lrCrl6NCoEHJBrDwEr5NrT6ko/UV8xdLAC2N49mlc5CylpYh8wCwqrvbBGLoKGvz8Bfq0QPWEUo/EAAAAASUVORK5CYII=')
+// const iconPath = path.join(__dirname, 'public', 'icon.svg');
+app.whenReady().then(() => {
+  tray = new Tray(icon)
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Start Long Timer', click: () => { console.log("Starting Long Timer") } },
+    { label: 'Start Short Timer', click: () => { console.log("Starting Short Timer") } },
+    { label: 'Start Break Timer', click: () => { console.log("Starting Break Timer") } },
+    { label: 'Quit', click: () => { app.quit() } }
+  ])
+  tray.setToolTip('This is my application.')
+  tray.setContextMenu(contextMenu)
 })
 
 app.whenReady().then(createWindow)
